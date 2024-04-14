@@ -2,10 +2,10 @@ import pickle
 import tkinter as tk
 from tkinter import messagebox
 
-with open('best_model.pkl', 'rb') as f:
+with open("best_model.pkl", "rb") as f:
     svm_classifier = pickle.load(f)
 
-with open('vectorizer_model.pkl', 'rb') as f:
+with open("vectorizer_model.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 
@@ -42,6 +42,7 @@ def resize_text_input(event):
     new_height = int(root.winfo_height() * 0.05)
     new_width = int(root.winfo_width() * 0.14)
     text_input.config(height=new_height, width=new_width)
+
 
 root = tk.Tk()
 root.title("Spam classifier")
