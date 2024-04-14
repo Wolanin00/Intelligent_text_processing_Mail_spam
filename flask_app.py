@@ -12,10 +12,16 @@ with open('vectorizer_model.pkl', 'rb') as f:
 
 @app.route('/')
 def index():
+    """
+    index
+    """
     return render_template('index.html')
 
 @app.route('/classify', methods=['POST'])
 def classify():
+    """
+    classify
+    """
     email_text = request.form['email_text']
 
     if not email_text.strip():
