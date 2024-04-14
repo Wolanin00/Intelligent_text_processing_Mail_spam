@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam classifier</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        body h1{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        #emailForm {
+            text-align: center;
+        }
+        #classificationResult {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spam classifier</h1>
+
+    <form id="emailForm">
+        <label for="emailText">Enter your email text:</label><br>
+        <textarea id="emailText" name="email_text" rows="30" cols="100"></textarea><br><br>
+        <input type="submit" value="Classify">
+    </form>
+
+    <div id="classificationResult"></div>
+
+    <script>
+        document.getElementById("emailForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            classifyEmail();
+        });
+
+        function classifyEmail() {
+            var emailText = document.getElementById("emailText").value;
+            fetch('/classify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'email_text=' + encodeURIComponent(emailText)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("classificationResult").innerHTML = data.result;
+                setTimeout(function() {
+                    document.getElementById("classificationResult").innerHTML = "";
+                }, 2000);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
