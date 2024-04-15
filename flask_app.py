@@ -33,9 +33,9 @@ def classify():
     prediction = svm_classifier.predict(email_vectorized)
 
     if prediction[0] == 1:
-        return jsonify({"result": "The email is spam!"})
+        return jsonify({"result": "Email is spam!"})
     else:
-        return jsonify({"result": "Email is not spam."})
+        return jsonify({"result": "Email is NOT spam."})
 
 
 if __name__ == "__main__":
