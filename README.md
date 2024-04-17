@@ -21,3 +21,5 @@ Go to root folder and run `flask_app.py` file -> `python flask_app.py`
 Go to root folder and run `tkinter_app.py` file -> `python tkinter_app.py`
 
 ## Tests
+
+test
