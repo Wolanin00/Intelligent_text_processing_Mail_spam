@@ -1,13 +1,14 @@
 import pickle
 from flask import Flask, render_template, request, jsonify
+from pathlib import Path
 
 app = Flask(__name__)
 
 # Load the saved model
-with open("best_model.pkl", "rb") as f:
+with open(Path(__file__).resolve().parent / "best_model.pkl", "rb") as f:
     svm_classifier = pickle.load(f)
 
-with open("vectorizer_model.pkl", "rb") as f:
+with open(Path(__file__).resolve().parent / "vectorizer_model.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 
@@ -34,8 +35,7 @@ def classify():
 
     if prediction[0] == 1:
         return jsonify({"result": "Email is spam!"})
-    else:
-        return jsonify({"result": "Email is NOT spam."})
+    return jsonify({"result": "Email is NOT spam."})
 
 
 if __name__ == "__main__":
