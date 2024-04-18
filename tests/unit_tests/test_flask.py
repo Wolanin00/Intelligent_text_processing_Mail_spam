@@ -11,19 +11,19 @@ class TestFlaskApp(unittest.TestCase):
         pass
 
     def test_index_route(self):
-        response = self.app.get('/')
+        response = self.app.get("/")
         self.assertEqual(response.status_code, 200)
 
-    @patch('flask_app.svm_classifier')
-    @patch('flask_app.vectorizer')
+    @patch("flask_app.svm_classifier")
+    @patch("flask_app.vectorizer")
     def test_classify_route(self, mock_vectorizer, mock_classifier):
-        mock_vectorizer.transform.return_value = 'vectorized_email'
+        mock_vectorizer.transform.return_value = "vectorized_email"
         mock_classifier.predict.return_value = [1]
 
-        response = self.app.post('/classify', data={'email_text': 'spam email'})
+        response = self.app.post("/classify", data={"email_text": "spam email"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['result'], 'Email is spam!')
+        self.assertEqual(response.json["result"], "Email is spam!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
