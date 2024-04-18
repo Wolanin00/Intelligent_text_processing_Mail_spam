@@ -1,7 +1,8 @@
 import pickle
 from flask import Flask, render_template, request, jsonify
 from pathlib import Path
-import json, os, signal
+import os
+import signal
 
 app = Flask(__name__)
 
