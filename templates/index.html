@@ -68,11 +68,18 @@
             justify-content: center;
             font-size: 2em;
         }
+        #exit_button {
+            position: absolute;
+            top: 10%;
+            left: 85%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Spam Classifier</h1>
+
+        <button class="button" id="exit_button" onclick="exitApp()">Exit</button>
 
         <form id="emailForm">
             <label for="emailText">Enter your email text:</label>
@@ -120,6 +127,16 @@
 
         function clearText() {
             document.getElementById("emailText").value = '';
+        }
+        function exitApp() {
+            fetch('/shutdown', {
+                method: 'POST'
+            })
+            .then(response => {
+                console.log('Server shutting down...');
+                window.location.href = '/shutdown';
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
