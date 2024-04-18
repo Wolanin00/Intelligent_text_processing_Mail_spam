@@ -32,3 +32,8 @@ To run all test tun -> `make test`
 
 To format code (with black) and make ruff run -> `make format`
 
+## Preview 
+
+### tkinter
+
+![tkinter](static/tkinter_app_preview.gif)
