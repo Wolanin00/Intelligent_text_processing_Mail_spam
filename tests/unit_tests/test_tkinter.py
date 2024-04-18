@@ -1,10 +1,11 @@
 import unittest
 from unittest.mock import patch
-from tkinter import Tk, messagebox
+import tkinter as tk
+from tkinter import messagebox
 from tkinter_app import SpamClassifierApp
 
 
-class TestSpamClassifierIntegration(unittest.TestCase):
+class TestSpamClassifierInit(unittest.TestCase):
 
     SPAM_MAIL = (
         "Dear Homeowner,\n\n \n\nInterest Rates are at their lowest point in 40 years!\n\n\n\nWe help you "
@@ -20,27 +21,48 @@ class TestSpamClassifierIntegration(unittest.TestCase):
         "Regards\nMateusz Szewczyk\n"
     )
 
-    def tearDown(self):
-        Tk().withdraw()
+    @classmethod
+    def setUpClass(cls):
+        cls.root = tk.Tk()
 
-    def test_spam_classification_integration(self):
-        root = Tk()
-        app = SpamClassifierApp(root)
-        app.text_input.insert("1.0", self.SPAM_MAIL)
+    @classmethod
+    def tearDownClass(cls):
+        cls.root.destroy()
+
+    def setUp(self):
+        self.app = SpamClassifierApp(self.root)
+
+    def tearDown(self):
+        self.app = None
+
+    def test_classification_spam(self):
+        self.app.text_input.insert(tk.END, self.SPAM_MAIL)
+
         with patch.object(messagebox, "showinfo") as mock_showinfo:
-            app.classify_email()
+            self.app.classify_email()
+
             mock_showinfo.assert_called_once_with(
                 "Classification result", "The email is spam!"
             )
 
-    def test_non_spam_classification_integration(self):
-        root = Tk()
-        app = SpamClassifierApp(root)
-        app.text_input.insert("1.0", self.NO_SPAM_MAIL)
+    def test_classification_not_spam(self):
+        self.app.text_input.insert(tk.END, self.NO_SPAM_MAIL)
+
         with patch.object(messagebox, "showinfo") as mock_showinfo:
-            app.classify_email()
+            self.app.classify_email()
+
             mock_showinfo.assert_called_once_with(
                 "Classification result", "Email is not spam."
+            )
+
+    def test_classification_no_text(self):
+        self.app.text_input.insert(1.0, "")
+
+        with patch.object(messagebox, "showwarning") as mock_showwarning:
+            self.app.classify_email()
+
+            mock_showwarning.assert_called_once_with(
+                "Classification result", "Please enter your email text."
             )
 
 

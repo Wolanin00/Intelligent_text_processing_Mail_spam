@@ -2,3 +2,7 @@ pandas==2.2.2
 nltk==3.8.1
 scikit-learn==1.4.2
 flask==3.0.3
+selenium
+pytest
+black[jupyter]
+ruff
