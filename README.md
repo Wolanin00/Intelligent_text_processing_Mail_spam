@@ -22,4 +22,4 @@ Go to root folder and run `tkinter_app.py` file -> `python tkinter_app.py`
 
 ## Tests
 
-test
+To run all unit and integration tests go to root folder and run -> `pytest`
