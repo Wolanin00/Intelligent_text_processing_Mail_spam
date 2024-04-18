@@ -1,6 +1,7 @@
 import pickle
 from flask import Flask, render_template, request, jsonify
 from pathlib import Path
+import json, os, signal
 
 app = Flask(__name__)
 
@@ -36,6 +37,14 @@ def classify():
     if prediction[0] == 1:
         return jsonify({"result": "Email is spam!"})
     return jsonify({"result": "Email is NOT spam."})
+
+
+@app.route("/shutdown")
+def shutdown():
+    """
+    shutdown
+    """
+    os.kill(os.getpid(), signal.SIGINT)
 
 
 if __name__ == "__main__":
