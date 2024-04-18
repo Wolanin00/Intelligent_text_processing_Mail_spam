@@ -34,6 +34,10 @@ To format code (with black) and make ruff run -> `make format`
 
 ## Preview 
 
-### tkinter
+### Flask app
+
+![tkinter](static/flask_app_preview.gif)
+
+### tkinter app
 
 ![tkinter](static/tkinter_app_preview.gif)
